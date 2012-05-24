@@ -23,6 +23,7 @@ namespace PartSearch
         {
             InitializeComponent();
 
+            /*
             List<string> bookmarks = new List<string>();
 
             // überprüfe ob eine bookmarks.txt existiert
@@ -52,6 +53,7 @@ namespace PartSearch
                     this.searchBox.ItemsSource = bookmarks;
                 }
             }
+             */
             //auch wenn keine Eingabe erfolgte sollen die bookmarks angezeigt werden.
             this.searchBox.MinimumPrefixLength = 0;  //FIXME: Wird beim ersten mal nicht angezeigt!
         }
@@ -66,6 +68,7 @@ namespace PartSearch
             //FIXME: er überschreibt immer die erste Zeile
             //FIXME: Wenn Bookmark gespeichert wurde, sollte die bookmarkliste aktualisiert werden
             // speicher den Inhalt der SearchBox als Bookmark
+            /*
             try
             {
                 IsolatedStorageFileStream myStream =
@@ -78,7 +81,7 @@ namespace PartSearch
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
+            }*/
 
         }
 
