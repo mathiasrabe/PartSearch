@@ -30,7 +30,7 @@ namespace PartSearch
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
             SearchEngine search = new SearchEngine();
-            search.GetWebText("");
+            search.GetWebText("testsuchtet");
 
         }
 
