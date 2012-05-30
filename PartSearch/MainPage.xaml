@@ -5,44 +5,46 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait" Orientation="Portrait"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True" xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls">
+
 
     <!--LayoutRoot ist das Stammraster, in dem alle anderen Seiteninhalte platziert werden-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <!--Pivotsteuerelement-->
+        <controls:Pivot Title="PartSearch">
+            <!--Pivotelement eins-->
+            <controls:PivotItem Header="Suche">
+                <Grid>
+                    <toolkit:ListPicker Height="64" HorizontalAlignment="Left" Margin="12,20,0,0" Name="distributorListPicker" VerticalAlignment="Top" Width="432" />
+                    <toolkit:AutoCompleteBox HorizontalAlignment="Left" Margin="-1,90,0,0" Name="searchBox" VerticalAlignment="Top" Width="455" />
+                    <Button Content="Bookmark" Foreground="Yellow" Height="72" HorizontalAlignment="Left" Margin="0,156,0,0" Name="bookmarkButton" Padding="3" VerticalAlignment="Top" Width="222" Click="bookmarkButton_Click" />
+                    <Button Content="Go!" Height="72" HorizontalAlignment="Left" Margin="235,156,0,0" Name="searchButton" VerticalAlignment="Top" Width="218" Click="searchButton_Click" Foreground="#FF3BFF00" Padding="3" />
+                </Grid>
+            </controls:PivotItem>
 
-        <!--TitlePanel enthält den Namen der Anwendung und den Seitentitel-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="MEINE ANWENDUNG" Style="{StaticResource PhoneTextNormalStyle}"/>
-        </StackPanel>
-
-        <!--ContentPanel - zusätzliche Inhalte hier platzieren-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <ListBox Height="551" HorizontalAlignment="Left" Margin="0,145,0,0" Name="resultListBox" VerticalAlignment="Top" Width="456" />
-            <Button Content="Go!" Height="72" HorizontalAlignment="Left" Margin="378,67,0,0" Name="searchButton" VerticalAlignment="Top" Width="72" Click="searchButton_Click" Foreground="#FF3BFF00" Padding="3" />
-            <toolkit:AutoCompleteBox HorizontalAlignment="Left" Margin="0,67,0,0" Name="searchBox" VerticalAlignment="Top" Width="318" />
-            <toolkit:ListPicker Height="55" HorizontalAlignment="Left" Margin="12,6,0,0" Name="distributorListPicker" VerticalAlignment="Top" Width="360" />
-            <Button Content="BM" Foreground="Yellow" Height="72" HorizontalAlignment="Left" Margin="313,67,0,0" Name="bookmarkButton" Padding="3" VerticalAlignment="Top" Width="72" Click="bookmarkButton_Click" />
-        </Grid>
+            <!--Pivotelement zwei-->
+            <controls:PivotItem Header="Ergebnisse">
+                <Grid>
+                    <ListBox Height="607" HorizontalAlignment="Left" Margin="-1,-1,0,0" Name="resultListBox" VerticalAlignment="Top" Width="456" />
+                </Grid>
+            </controls:PivotItem>
+        </controls:Pivot>
     </Grid>
- 
+
     <!--Beispielcode für die Verwendung von ApplicationBar-->
     <!--<phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Schaltfläche 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Schaltfläche 2"/>
+            <shell:ApplicationBarIconButton x:Name="appbar_button1" IconUri="/Images/appbar_button1.png" Text="Schaltfläche 1"/>
+            <shell:ApplicationBarIconButton x:Name="appbar_button2" IconUri="/Images/appbar_button2.png" Text="Schaltfläche 2"/>
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="Menüelement 1"/>
-                <shell:ApplicationBarMenuItem Text="Menüelement 2"/>
+                <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="Menüelement 1"/>
+                <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="Menüelement 2"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>-->

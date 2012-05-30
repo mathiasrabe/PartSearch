@@ -22,7 +22,7 @@ namespace PartSearch
         // Konstruktor
         public MainPage()
         {
-            InitializeComponent();
+            //InitializeComponent();
 
             /*
             List<string> bookmarks = new List<string>();
@@ -56,7 +56,7 @@ namespace PartSearch
             }
              */
             //auch wenn keine Eingabe erfolgte sollen die bookmarks angezeigt werden.
-            this.searchBox.MinimumPrefixLength = 0;  //FIXME: Wird beim ersten mal nicht angezeigt!
+            //this.searchBox.MinimumPrefixLength = 0;  //FIXME: Wird beim ersten mal nicht angezeigt!
         }
         
         private void searchButton_Click(object sender, RoutedEventArgs e)
