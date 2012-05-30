@@ -47,7 +47,7 @@ namespace PartSearch
             }
             catch (WebException e)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show(e.Message); //FIXME
             }
         }
 
@@ -60,10 +60,12 @@ namespace PartSearch
             if (e.Error == null)
             {
                 // Use the result
-                MessageBox.Show(e.Result);
+                htmlText = e.Result;
+                MessageBox.Show(e.Result); //FIXME
             }
             else
             {
+                //FIXME
                 MessageBox.Show("Error: " + e.Result);
             }
         }
