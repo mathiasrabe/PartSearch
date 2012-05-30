@@ -3,36 +3,54 @@ using System.IO;
 using System.Net;
 using System.Collections.Generic;
 using System.Windows;
-/*
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;*/
-//using System.Text;
-//using System.Threading;
-
-// nicht viel übernommen von: http://msdn.microsoft.com/en-us/library/system.net.httpwebrequest.begingetresponse.aspx
+using PartSearch.Models;
 
 namespace PartSearch
 {
     public class SearchEngine
     {
-        protected string myURI;
-        protected string htmlText;
+        protected string _myURI;
+        protected string _htmlText;
+        protected string _backPartOfMyURI = ""; //falls der searchTerm inmitten der URI ist, kann hier der Teil hinter dem searchTerm gespeichert werden
 
         /**
          * Konstruktor
          * 
          * Ableitende Klassen müssen in ihren Konstruktoren ihre URI initialisieren!
          **/
-        public SearchEngine()
+        /*public SearchEngine()
         {
             //TODO: dies sollte in den abgeleiteten Klassen deffiniert werden
-            myURI = "http://www.google.de/#hl=de&q=";
+            _myURI = "http://www.google.de/#hl=de&q=";
+        }*/
+
+        /**
+         * Gibt Host URL der Domain zurück
+         **/
+        public string URL
+        {
+            get
+            {
+                Uri URI = new Uri(_myURI);
+                return URI.Host;
+            }
         }
+
+        /**
+         * behandelt _backPartOfMyURI
+         **/
+        public string backPartOfMyURI
+        {
+            get
+            {
+                return _backPartOfMyURI;
+            }
+            set
+            {
+                _backPartOfMyURI = value;
+            }
+        }
+
 
         /**
          * Sucht nach searchTerm unter der initialisierten URI
@@ -43,7 +61,7 @@ namespace PartSearch
             {
                 WebClient client = new WebClient();
                 client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(client_DownloadStringCompleted);
-                client.DownloadStringAsync(new Uri(myURI + searchTerm));
+                client.DownloadStringAsync(new Uri(_myURI + searchTerm + _backPartOfMyURI));
             }
             catch (WebException e)
             {
@@ -60,7 +78,7 @@ namespace PartSearch
             if (e.Error == null)
             {
                 // Use the result
-                htmlText = e.Result;
+                _htmlText = e.Result;
                 MessageBox.Show(e.Result); //FIXME
             }
             else
@@ -76,9 +94,9 @@ namespace PartSearch
          * 
          * Rückgabewert: null liste bei Fehler
          **/
-        public virtual List<List<string>> GetParts()
+        public virtual List<Product> GetParts()
         {
-            List<List<string>> list = new List<List<string>>();
+            List<Product> list = new List<Product>();
             return list;
         }
     }
