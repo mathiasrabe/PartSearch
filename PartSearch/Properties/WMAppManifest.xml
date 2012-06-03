@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{17ac1eb7-7595-4fac-b4f6-44d61183e304}" Title="PartSearch" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="PartSearch author" Description="Sample description" Publisher="PartSearch">
+  <App xmlns="" ProductID="{5d077f83-64b5-4cc3-95cc-061b98a78e6d}" Title="PartSearch" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="PartSearch author" Description="Sample description" Publisher="PartSearch">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES"/>

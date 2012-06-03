@@ -17,6 +17,24 @@ namespace PartSearch
 {
     public partial class App : Application
     {
+        private static MainViewModel viewModel = null;
+
+        /// <summary>
+        /// Eine statisches ViewModel, an das die Ansichten gebunden werden.
+        /// </summary>
+        /// <returns>MainViewModel-Objekt.</returns>
+        public static MainViewModel ViewModel
+        {
+            get
+            {
+                // Erstellung des Ansichtsmodells verzögern bis erforderlich
+                if (viewModel == null)
+                    viewModel = new MainViewModel();
+
+                return viewModel;
+            }
+        }
+
         /// <summary>
         /// Bietet einen einfachen Zugriff auf den Stammframe der Phone-Anwendung.
         /// </summary>
@@ -40,7 +58,7 @@ namespace PartSearch
             // Während des Debuggens Profilerstellungsinformationen zur Grafikleistung anzeigen.
             if (System.Diagnostics.Debugger.IsAttached)
             {
-                // Zähler für die aktuelle Bildrate anzeigen.
+                // Zähler für die aktuelle Bildrate anzeigen
                 Application.Current.Host.Settings.EnableFrameRateCounter = true;
 
                 // Bereiche der Anwendung hervorheben, die mit jedem Bild neu gezeichnet werden.
@@ -56,7 +74,6 @@ namespace PartSearch
                 // und verbraucht auch dann Akkuenergie, wenn der Benutzer das Handy nicht verwendet.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
-
         }
 
         // Code, der beim Starten der Anwendung ausgeführt werden soll (z. B. über "Start")
@@ -69,6 +86,11 @@ namespace PartSearch
         // Dieser Code wird beim ersten Starten der Anwendung nicht ausgeführt
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
+            // Sicherstellen, dass der Anwendungszustand ordnungsgemäß wiederhergestellt wird
+            if (!App.ViewModel.IsDataLoaded)
+            {
+                App.ViewModel.LoadData();
+            }
         }
 
         // Code, der ausgeführt werden soll, wenn die Anwendung deaktiviert wird (in den Hintergrund gebracht wird)
@@ -81,6 +103,7 @@ namespace PartSearch
         // Dieser Code wird beim Deaktivieren der Anwendung nicht ausgeführt
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
+            // Sicherstellen, dass der erforderliche Anwendungszustand hier beibehalten wird
         }
 
         // Code, der bei einem Navigationsfehler ausgeführt wird
