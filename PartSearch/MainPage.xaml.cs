@@ -38,7 +38,7 @@ namespace PartSearch
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
             Buerklin search = new Buerklin();
-            search.GetWebText("testsuchtet");
+            search.GetWebText(searchBox.Text);
             //search.GetParts();
 
         }

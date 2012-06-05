@@ -14,7 +14,8 @@ namespace PartSearch.Parser
         public Buerklin()
         {
             //TODO: URI anpassen!
-            _myURI = "http://www.buerklin.de";
+            _myURI = "http://www.buerklin.com/default.asp?event=ShowSE(";
+            _backPartOfMyURI = ")";
         }
 
         public override List<Product> GetParts()

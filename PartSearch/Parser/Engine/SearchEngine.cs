@@ -84,6 +84,7 @@ namespace PartSearch
             else
             {
                 //FIXME
+                // WebException behandeln!
                 MessageBox.Show("Error: " + e.Result);
             }
         }
