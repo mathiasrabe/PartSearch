@@ -65,7 +65,11 @@ namespace PartSearch
             }
             catch (WebException e)
             {
-                MessageBox.Show(e.Message); //FIXME
+                MessageBox.Show(e.Message);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
 
@@ -83,9 +87,7 @@ namespace PartSearch
             }
             else
             {
-                //FIXME
-                // WebException behandeln!
-                MessageBox.Show("Error: " + e.Result);
+                MessageBox.Show("Error: " + e.Error);
             }
         }
 
