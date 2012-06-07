@@ -30,8 +30,8 @@ namespace PartSearch
             _DistributorBuerklin = new Buerklin();
 
             //Erstelle Liste aller Distributor
-            List<String> DistributorList = new List<String>();
-            DistributorList.Add(_DistributorBuerklin.URL);
+            List<SearchEngine> DistributorList = new List<SearchEngine>();
+            DistributorList.Add(_DistributorBuerklin);
 
             //füttere den ListPicker mit Distributoren
             this.distributorListPicker.ItemsSource = DistributorList;
