@@ -16,6 +16,7 @@ namespace PartSearch
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        Buerklin _DistributorBuerklin;
         // Konstruktor
         public MainPage()
         {
@@ -24,6 +25,16 @@ namespace PartSearch
             // Datenkontext des Listenfeldsteuerelements auf die Beispieldaten festlegen
             DataContext = App.ViewModel;
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
+
+            // erzeuge Distributor Modul Buerklin
+            _DistributorBuerklin = new Buerklin();
+
+            //Erstelle Liste aller Distributor
+            List<String> DistributorList = new List<String>();
+            DistributorList.Add(_DistributorBuerklin.URL);
+
+            //füttere den ListPicker mit Distributoren
+            this.distributorListPicker.ItemsSource = DistributorList;
         }
 
         // Daten für die ViewModel-Elemente laden
@@ -37,8 +48,7 @@ namespace PartSearch
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            Buerklin search = new Buerklin();
-            search.GetWebText(searchBox.Text);
+            _DistributorBuerklin.GetWebText(searchBox.Text);
             //search.GetParts();
 
         }
