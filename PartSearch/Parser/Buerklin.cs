@@ -1,10 +1,8 @@
-
 //TODO::
             //Typecastin                                    (erledigt 08.06.2012 Michi und Benny)
             //-Übergabe an Modell                           (erledigt 08.06.2012 Michi und Benny)
             //-Eventuell Strings weiter Bearbeiten
-            //Bedinung in foreach eintragen (bei.....)
-            //Bedingung bei Suchbegriff fuer Anzahl eintragen
+            //Bedinung in foreach eintragen (bei.....)      (erledigt 08.06.2012 Benny)
             //SET Routinen fuer Product einarbeiten
 
 
@@ -36,30 +34,52 @@ namespace PartSearch.Parser
 
             private string _name;
             private double _price;
-            private int _quantity;
+        
 
             private string hname;
             private string hprice;
-            private string hquantity
-
+           
            // ObservableCollection<Gericht> tmpGerichte = new ObservableCollection<Gericht>();
 
             HtmlDocument doc = new HtmlDocument();   //Erstellung HTML Documentes und runtergeladenen HTML text da rein
             doc.LoadHtml(HTML);
-            foreach (HTMLNode .......) 
+           
    
-
+           var hell = doc.DocumentNode.SelectNodes("//table[@class='hell']");
+           foreach (HTMLNode hell in hell) 
             {
 
             // Auslesen Der Daten
             var name = doc.DocumentNode.SelectSingleNode("//td[@class='Typ']").InnerText;
             var hprice = doc.DocumentNode.SelectSingleNode("//td[@class='Brutto']").InnerText;
-            var hquantity = doc.DocumentNode.SelectSingleNode("//td[@class='/*Hir Suchbegriff Eintragen*/']").InnerText;
+       
 
             //Typecasting                               umwandlung von Strings in Zahlen
             price = (double)hprice;
-            quantity = (int)hquantity;
-            
+           
+
+            //Daten in Hilfsmodell schreiben
+            Product tmpProduct = new Product();
+                    tmpProduct.name = name;
+                    tmpProduct.price = price;
+                
+
+            //Hinzufuegen der Daten des Hilfmodelles in das richtige
+                    Product.Add(tmpProduct);
+
+            }
+   
+           var dunkel = doc.DocumentNode.SelectNodes("//table[@class='dunkel']");
+           foreach (HTMLNode dunkel in dunkel) 
+            {
+
+            // Auslesen Der Daten
+            var name = doc.DocumentNode.SelectSingleNode("//td[@class='Typ']").InnerText;
+            var hprice = doc.DocumentNode.SelectSingleNode("//td[@class='Brutto']").InnerText;
+        
+            //Typecasting                               umwandlung von Strings in Zahlen
+            price = (double)hprice;
+                       
 
             //Daten in Hilfsmodell schreiben
             Product tmpProduct = new Product();
@@ -71,8 +91,6 @@ namespace PartSearch.Parser
                     Product.Add(tmpProduct);
 
             }
-   
-           
             //return list;
         }
 
