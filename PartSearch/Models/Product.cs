@@ -15,7 +15,7 @@ namespace PartSearch.Models
     public class Product : INotifyPropertyChanged
     {
         private string _name;
-        private string _description;
+        //private string _description;
         private double _price;
         private int _quantity;
 
@@ -32,7 +32,7 @@ namespace PartSearch.Models
                 RaisePropertyChanged("Name");
             }
         }
-
+/*
         public string Description
         {
             get
@@ -46,7 +46,7 @@ namespace PartSearch.Models
                 RaisePropertyChanged("Description");
             }
         }
-
+*/
         public double Price
         {
             get
