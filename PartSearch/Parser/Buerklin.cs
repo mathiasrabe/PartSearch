@@ -41,11 +41,14 @@ namespace PartSearch.Parser
            
            // ObservableCollection<Gericht> tmpGerichte = new ObservableCollection<Gericht>();
 
-            HtmlDocument doc = new HtmlDocument();   //Erstellung HTML Documentes und runtergeladenen HTML text da rein
-            doc.LoadHtml(HTML);
-           
-   
+           HtmlDocument doc = new HtmlDocument();   //Erstellung HTML Documentes und runtergeladenen HTML text da rein
+           doc.LoadHtml(HTML);
+              
            var hell = doc.DocumentNode.SelectNodes("//table[@class='hell']");
+
+           // erstellen der Hilfsinstanz von Produk
+           Product tmpProduct = new Product();
+
            foreach (HTMLNode hell in hell) 
             {
 
@@ -59,7 +62,6 @@ namespace PartSearch.Parser
            
 
             //Daten in Hilfsmodell schreiben
-            Product tmpProduct = new Product();
                     tmpProduct.name = name;
                     tmpProduct.price = price;
                 
@@ -82,13 +84,12 @@ namespace PartSearch.Parser
                        
 
             //Daten in Hilfsmodell schreiben
-            Product tmpProduct = new Product();
                     tmpProduct.name = name;
                     tmpProduct.price = price;
-                    tmpProduct.quantity = quantity;
+
 
             //Hinzufuegen der Daten des Hilfmodelles in das richtige
-                    Product.Add(tmpProduct);
+                    ProductList.Add(tmpProduct);
 
             }
             //return list;
