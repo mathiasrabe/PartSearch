@@ -55,10 +55,10 @@ namespace PartSearch.Filewrapper
                             bookmarks.Add(line);
                         reader.Close();
  	 	            }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
-                        //MessageBox.Show(e.Message);
-                        throw e;
+                        //MessageBox.Show(ex.Message);
+                        throw;
                     } 	 	
                 }
             }
@@ -84,77 +84,94 @@ namespace PartSearch.Filewrapper
  	 	    catch (Exception ex)
  	        {
  	 	        //MessageBox.Show(ex.Message);
-                throw ex;
+                throw;
  	 	    }
         }
 
         public void removeBookmark(String bookmark)
         {
-            try
+            // überprüfe ob eine datei existiert
+            //FIXME was soll passieren, wenn keine Datei gefunden wurde?
+            string[] fileNames = isoStore.GetFileNames(this._fileName);
+            foreach (string file in fileNames)
             {
-                IsolatedStorageFile tempStore = IsolatedStorageFile.GetUserStoreForApplication();
-
-                IsolatedStorageFileStream myTempStream = new IsolatedStorageFileStream("tempFile",
-                    FileMode.Create,
-                    tempStore);
-                StreamWriter writer = new StreamWriter(myTempStream);
-
-                //FIXME was passiert, wenn _fileName nicht existiert?
-                IsolatedStorageFileStream myOldStream = new IsolatedStorageFileStream(this._fileName,
-                    FileMode.Open,
-                    isoStore);
-                StreamReader reader = new StreamReader(myOldStream);
-
-                while(!reader.EndOfStream)
+                if (file == this._fileName)
                 {
-                    string line = reader.ReadLine();
-                    if (line != bookmark)
+                    try
                     {
-                        writer.WriteLine(line);
+                        IsolatedStorageFile tempStore = IsolatedStorageFile.GetUserStoreForApplication();
+
+                        IsolatedStorageFileStream myTempStream = new IsolatedStorageFileStream("tempFile",
+                            FileMode.Create,
+                            tempStore);
+                        StreamWriter writer = new StreamWriter(myTempStream);
+
+                        IsolatedStorageFileStream myOldStream = new IsolatedStorageFileStream(this._fileName,
+                            FileMode.Open,
+                            isoStore);
+                        StreamReader reader = new StreamReader(myOldStream);
+
+                        while (!reader.EndOfStream)
+                        {
+                            string line = reader.ReadLine();
+                            if (line != bookmark)
+                            {
+                                writer.WriteLine(line);
+                            }
+                        }
+
+                        writer.Close();
+                        reader.Close();
+
+                        isoStore.DeleteFile(this._fileName);
+                        isoStore.MoveFile("tempFile", this._fileName);
+
+                        onPropertyChanged(this, "list");
+
+                    }
+                    catch (Exception ex)
+                    {
+                        //MessageBox.Show(ex.Message);
+                        throw;
                     }
                 }
-
-                writer.Close();
-                reader.Close();
-
-                isoStore.DeleteFile(this._fileName);
-                isoStore.MoveFile( "tempFile" , this._fileName);
-
-                onPropertyChanged(this, "list");
-
-            }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.Message);
-                throw ex;
             }
         }
 
         public bool doesExist(string bookmark)
         {
-            try
+            // überprüfe ob eine datei existiert
+            string[] fileNames = isoStore.GetFileNames(this._fileName);
+            foreach (string file in fileNames)
             {
-                //FIXME was passiert, wenn _fileName nicht existiert?
-                IsolatedStorageFileStream myOldStream = new IsolatedStorageFileStream(this._fileName,
-                    FileMode.Open,
-                    isoStore);
-                StreamReader reader = new StreamReader(myOldStream);
-
-                while (!reader.EndOfStream)
+                if (file == this._fileName)
                 {
-                    string line = reader.ReadLine();
-                    if (line == bookmark)
+                    try
                     {
-                        return true;
+                        IsolatedStorageFileStream myStream = new IsolatedStorageFileStream(this._fileName,
+                            FileMode.Open,
+                            isoStore);
+                        StreamReader reader = new StreamReader(myStream);
+
+                        while (!reader.EndOfStream)
+                        {
+                            string line = reader.ReadLine();
+                            if (line == bookmark)
+                            {
+                                reader.Close();
+                                return true;
+                            }
+                        }
+
+                        reader.Close();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        //MessageBox.Show(ex.Message);
+                        throw;
                     }
                 }
-
-                reader.Close();
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
             return false;
         }
