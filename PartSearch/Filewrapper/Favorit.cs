@@ -12,30 +12,21 @@ using System.IO.IsolatedStorage;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace PartSearch.Filewrapper
 {
 
-    public class Favorit
+    public class Favorit : INotifyPropertyChanged
+
     {
+        IsolatedStorageFile isoStore = IsolatedStorageFile.GetUserStoreForApplication();
+        String _fileName;
 
         //Konstruktor
         public Favorit(string fileName)
         {
             this._fileName = fileName;
-        }
-
-        private  string _fileName
-        {
-            private set
-            {
-                _fileName = value;
-            }
-
-            get
-            {
-                return _fileName;
-            }
         }
 
         // gebe alle Bookmarks wieder
@@ -68,15 +59,11 @@ namespace PartSearch.Filewrapper
                     {
                         //MessageBox.Show(e.Message);
                         throw e;
-                    }
- 	 	
-                    return bookmarks;
- 	 	
+                    } 	 	
                 }
- 	 	
             }
+            return bookmarks;
         }
-        // ende Konstruktor
 
         public void addBookmark(String bookmark)
         {
@@ -90,6 +77,8 @@ namespace PartSearch.Filewrapper
                 writer.WriteLine(bookmark);
  	 	
                 writer.Close();
+
+                onPropertyChanged(this, "list");
  	 	
             }
  	 	    catch (Exception ex)
@@ -97,6 +86,16 @@ namespace PartSearch.Filewrapper
  	 	        //MessageBox.Show(ex.Message);
                 throw ex;
  	 	    }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void onPropertyChanged(object sender, string propertyName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                PropertyChanged(sender, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }        
 }

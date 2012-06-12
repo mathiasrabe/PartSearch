@@ -14,6 +14,7 @@ using PartSearch.Parser;
 using System.IO.IsolatedStorage;
 using System.IO;
 using PartSearch.Filewrapper;
+using System.Reflection;
 
 namespace PartSearch
 {
@@ -30,6 +31,7 @@ namespace PartSearch
             //Bookmarkzeugs initialisieren
             bookmarks = new Favorit("bookmarks.txt");
             searchBox.ItemsSource = bookmarks.getBookmarkList();
+            bookmarks.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(this.bookmarksChanged);
 
             // Datenkontext des Listenfeldsteuerelements auf die Beispieldaten festlegen
             DataContext = App.ViewModel;
@@ -71,6 +73,17 @@ namespace PartSearch
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void bookmarksChanged(object sender, EventArgs ea)
+        {
+            if (sender == bookmarks)
+            {
+                //if (ea.ToString == "list")
+                //{
+                    searchBox.ItemsSource = bookmarks.getBookmarkList();
+                //}
             }
         }
     }
