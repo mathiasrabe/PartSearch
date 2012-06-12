@@ -59,14 +59,12 @@ namespace PartSearch
         /// <summary>
         /// Erstellt und fügt einige ItemViewModel-Objekte zur Items-Auflistung hinzu.
         /// </summary>
-        public void LoadData()
-	//public void LoadData(string name, string preis)
-        {
-            // Beispieldaten. Durch echte Daten ersetzen
-            this.Items.Add(new Product() { Name = "Diode1", Price = 10.5, Description = "Geht sofort kaputt!" });
-            this.Items.Add(new Product() { Name = "Diode2", Price = 5, Description = "Geht auch sofort kaputt!" });
 
-	    //this.Items.Add(new Product() { Name = name, Price = preis, Description = "Beschreibung nicht verfügbar" });
+	public void LoadData(string name, string preis)
+        {
+            Beispieldaten. Durch echte Daten ersetzen
+           
+	    this.Items.Add(new Product() { Name = name, Price = preis, Description = "Beschreibung nicht verfügbar" });
     
 
             this.IsDataLoaded = true;

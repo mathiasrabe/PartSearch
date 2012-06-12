@@ -1,4 +1,4 @@
-//TODO::
+﻿//TODO::
             //Typecastin                                    (erledigt 08.06.2012 Michi und Benny)
             //-Übergabe an Modell                           (erledigt 08.06.2012 Michi und Benny)
             //-Eventuell Strings weiter Bearbeiten
@@ -61,13 +61,7 @@ namespace PartSearch.Parser
             price = (double)hprice;
            
 
-            //Daten in Hilfsmodell schreiben
-                    tmpProduct.name = name;
-                    tmpProduct.price = price;
-                
-
-            //Hinzufuegen der Daten des Hilfmodelles in das richtige
-                    Product.Add(tmpProduct);
+	    // Hier Übergabefunktion Aufrufen
 
             }
    
@@ -83,13 +77,7 @@ namespace PartSearch.Parser
             price = (double)hprice;
                        
 
-            //Daten in Hilfsmodell schreiben
-                    tmpProduct.name = name;
-                    tmpProduct.price = price;
-
-
-            //Hinzufuegen der Daten des Hilfmodelles in das richtige
-                    ProductList.Add(tmpProduct);
+           // Hier Übergabefunktion Aufrufen
 
             }
             //return list;
