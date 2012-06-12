@@ -66,13 +66,27 @@ namespace PartSearch
 
         private void bookmarkButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (bookmarks.doesExist(searchBox.Text))
             {
-                bookmarks.addBookmark(searchBox.Text);
+                try
+                {
+                    bookmarks.removeBookmark(searchBox.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                try
+                {
+                    bookmarks.addBookmark(searchBox.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -84,6 +98,15 @@ namespace PartSearch
                 //{
                     searchBox.ItemsSource = bookmarks.getBookmarkList();
                 //}
+            }
+        }
+
+        private void searchBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (bookmarks.doesExist(searchBox.Text))
+            {
+                //ändere das style des buttons
+                //bookmarkButton.Style = (Style)this.Ressources
             }
         }
     }
