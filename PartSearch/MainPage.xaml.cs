@@ -11,16 +11,25 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using PartSearch.Parser;
+using System.IO.IsolatedStorage;
+using System.IO;
+using PartSearch.Filewrapper;
 
 namespace PartSearch
 {
     public partial class MainPage : PhoneApplicationPage
     {
         Buerklin _DistributorBuerklin;
+        Favorit bookmarks;
+
         // Konstruktor
         public MainPage()
         {
             InitializeComponent();
+
+            //Bookmarkzeugs initialisieren
+            bookmarks = new Favorit("bookmarks.txt");
+            searchBox.ItemsSource = bookmarks.getBookmarkList();
 
             // Datenkontext des Listenfeldsteuerelements auf die Beispieldaten festlegen
             DataContext = App.ViewModel;
@@ -55,7 +64,14 @@ namespace PartSearch
 
         private void bookmarkButton_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                bookmarks.addBookmark(searchBox.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
