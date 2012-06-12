@@ -88,6 +88,77 @@ namespace PartSearch.Filewrapper
  	 	    }
         }
 
+        public void removeBookmark(String bookmark)
+        {
+            try
+            {
+                IsolatedStorageFile tempStore = IsolatedStorageFile.GetUserStoreForApplication();
+
+                IsolatedStorageFileStream myTempStream = new IsolatedStorageFileStream("tempFile",
+                    FileMode.Create,
+                    tempStore);
+                StreamWriter writer = new StreamWriter(myTempStream);
+
+                //FIXME was passiert, wenn _fileName nicht existiert?
+                IsolatedStorageFileStream myOldStream = new IsolatedStorageFileStream(this._fileName,
+                    FileMode.Open,
+                    isoStore);
+                StreamReader reader = new StreamReader(myOldStream);
+
+                while(!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+                    if (line != bookmark)
+                    {
+                        writer.WriteLine(line);
+                    }
+                }
+
+                writer.Close();
+                reader.Close();
+
+                isoStore.DeleteFile(this._fileName);
+                isoStore.MoveFile( "tempFile" , this._fileName);
+
+                onPropertyChanged(this, "list");
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);
+                throw ex;
+            }
+        }
+
+        public bool doesExist(string bookmark)
+        {
+            try
+            {
+                //FIXME was passiert, wenn _fileName nicht existiert?
+                IsolatedStorageFileStream myOldStream = new IsolatedStorageFileStream(this._fileName,
+                    FileMode.Open,
+                    isoStore);
+                StreamReader reader = new StreamReader(myOldStream);
+
+                while (!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+                    if (line == bookmark)
+                    {
+                        return true;
+                    }
+                }
+
+                reader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return false;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void onPropertyChanged(object sender, string propertyName)
