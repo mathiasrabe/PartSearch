@@ -24,6 +24,8 @@ namespace PartSearch
             this.Items = new ObservableCollection<Product>();
         }
 
+	public SearchEngin Engin{get; set;}
+
         /// <summary>
         /// Eine Auflistung für ItemViewModel-Objekte.
         /// </summary>
@@ -62,9 +64,9 @@ namespace PartSearch
 
 	public void LoadData(string name, string preis)
         {
-            Beispieldaten. Durch echte Daten ersetzen
+            
            
-	    this.Items.Add(new Product() { Name = name, Price = preis, Description = "Beschreibung nicht verfügbar" });
+	    
     
 
             this.IsDataLoaded = true;

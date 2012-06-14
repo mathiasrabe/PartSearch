@@ -44,6 +44,8 @@ namespace PartSearch
 
             //füttere den ListPicker mit Distributoren
             this.distributorListPicker.ItemsSource = DistributorList;
+
+	    App.ViewModel.Engine = _DistributorBuerklin;
         }
 
         // Daten für die ViewModel-Elemente laden
