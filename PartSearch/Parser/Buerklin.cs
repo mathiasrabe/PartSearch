@@ -1,16 +1,26 @@
-﻿using System;
+﻿//TODO::
+            //Typecastin                                    (erledigt 08.06.2012 Michi und Benny)
+            //-Übergabe an Modell                           (erledigt 08.06.2012 Michi und Benny)
+            //-Eventuell Strings weiter Bearbeiten
+            //Bedinung in foreach eintragen (bei.....)      (erledigt 08.06.2012 Benny)
+            //SET Routinen fuer Product einarbeiten
+
+
+using System;
 using System.Net;
 using System.Windows;
 using System.Collections.Generic;
 using PartSearch.Models;
+using HtmlAgilityPack;
+using System.ComponentModel;
 
 namespace PartSearch.Parser
 {
-    public class Buerklin : SearchEngine
+    public class Buerklin : SearchEngine  //: heisst erbt von Search Engine
     {
         /**
-         * Konstruktor
-         **/
+* Konstruktor
+**/
         public Buerklin()
         {
             //TODO: URI anpassen!
@@ -20,11 +30,59 @@ namespace PartSearch.Parser
 
         public override List<Product> GetParts()
         {
-            //TODO: Mit Leben füllen!
-            //siehe Klasse HtmlDocument
-            //HTML Text sollte in _htmlText stehen
-            List<Product> list = new List<Product>();
-            return list;
+            // Hilfsvariablen begindn mit h
+
+            private string _name;
+            private double _price;
+        
+
+            private string hname;
+            private string hprice;
+           
+           // ObservableCollection<Gericht> tmpGerichte = new ObservableCollection<Gericht>();
+
+           HtmlDocument doc = new HtmlDocument();   //Erstellung HTML Documentes und runtergeladenen HTML text da rein
+           doc.LoadHtml(HTML);
+              
+           var hell = doc.DocumentNode.SelectNodes("//table[@class='hell']");
+
+           // erstellen der Hilfsinstanz von Produk
+           Product tmpProduct = new Product();
+
+           foreach (HTMLNode hell in hell) 
+            {
+
+            // Auslesen Der Daten
+            var name = doc.DocumentNode.SelectSingleNode("//td[@class='Typ']").InnerText;
+            var hprice = doc.DocumentNode.SelectSingleNode("//td[@class='Brutto']").InnerText;
+       
+
+            //Typecasting                               umwandlung von Strings in Zahlen
+            price = (double)hprice;
+           
+
+	    // Datenübergabe
+	    this.Items.Add(new Product() { Name = name, Price = price, Description = "Beschreibung nicht verfügbar" };
+
+            }
+   
+           var dunkel = doc.DocumentNode.SelectNodes("//table[@class='dunkel']");
+           foreach (HTMLNode dunkel in dunkel) 
+            {
+
+            // Auslesen Der Daten
+            var name = doc.DocumentNode.SelectSingleNode("//td[@class='Typ']").InnerText;
+            var hprice = doc.DocumentNode.SelectSingleNode("//td[@class='Brutto']").InnerText;
+        
+            //Typecasting                               umwandlung von Strings in Zahlen
+            price = (double)hprice;
+                       
+
+            // Datenübergabe
+	    this.Items.Add(new Product() { Name = name, Price = price, Description = "Beschreibung nicht verfügbar" };
+
+            }
+            //return list;
         }
 
     }
