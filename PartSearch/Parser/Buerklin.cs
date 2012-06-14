@@ -61,7 +61,8 @@ namespace PartSearch.Parser
             price = (double)hprice;
            
 
-	    // Hier Übergabefunktion Aufrufen
+	    // Datenübergabe
+	    this.Items.Add(new Product() { Name = name, Price = price, Description = "Beschreibung nicht verfügbar" };
 
             }
    
@@ -77,7 +78,8 @@ namespace PartSearch.Parser
             price = (double)hprice;
                        
 
-           // Hier Übergabefunktion Aufrufen
+            // Datenübergabe
+	    this.Items.Add(new Product() { Name = name, Price = price, Description = "Beschreibung nicht verfügbar" };
 
             }
             //return list;
