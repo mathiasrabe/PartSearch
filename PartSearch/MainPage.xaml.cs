@@ -47,22 +47,25 @@ namespace PartSearch
             //füttere den ListPicker mit Distributoren
             this.distributorListPicker.ItemsSource = DistributorList;
 
-	    App.ViewModel.Engine = _DistributorBuerklin;
+	        App.ViewModel.Engine = _DistributorBuerklin;
+            App.ViewModel.Engine.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(this.ComponentsLoaded);
+
         }
 
         // Daten für die ViewModel-Elemente laden
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!App.ViewModel.IsDataLoaded)
+            /*if (!App.ViewModel.IsDataLoaded)
             {
                 App.ViewModel.LoadData();
-            }
+            }*/
         }
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            _DistributorBuerklin.GetWebText(searchBox.Text);
+            //_DistributorBuerklin.GetWebText(searchBox.Text);
             //search.GetParts();
+            App.ViewModel.SearchData(searchBox.Text);
 
         }
 
@@ -101,6 +104,11 @@ namespace PartSearch
                     searchBox.ItemsSource = bookmarks.getItemList();
                 //}
             }
+        }
+
+        private void ComponentsLoaded(object sender, EventArgs e)
+        {
+            //TODO Fenster wechseln
         }
 
         private void searchBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

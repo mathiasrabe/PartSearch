@@ -13,76 +13,91 @@ using System.Collections.Generic;
 using PartSearch.Models;
 using HtmlAgilityPack;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
+using System.Xml;
 
 namespace PartSearch.Parser
 {
     public class Buerklin : SearchEngine  //: heisst erbt von Search Engine
     {
+        ObservableCollection<Product> Items;
         /**
-* Konstruktor
-**/
+        * Konstruktor
+        **/
         public Buerklin()
         {
             //TODO: URI anpassen!
             _myURI = "http://www.buerklin.com/default.asp?event=ShowSE(";
             _backPartOfMyURI = ")";
+            Items = new ObservableCollection<Product>();
         }
 
-        public override List<Product> GetParts()
+        public override ObservableCollection<Product> GetParts()
         {
             // Hilfsvariablen begindn mit h
 
-            private string _name;
-            private double _price;
+            string name;
+            string price;
         
-
-            private string hname;
-            private string hprice;
+            /*
+            string hname;
+            string hprice;*/
            
            // ObservableCollection<Gericht> tmpGerichte = new ObservableCollection<Gericht>();
 
-           HtmlDocument doc = new HtmlDocument();   //Erstellung HTML Documentes und runtergeladenen HTML text da rein
-           doc.LoadHtml(HTML);
-              
-           var hell = doc.DocumentNode.SelectNodes("//table[@class='hell']");
+           //Erstellung HTML Documentes und runtergeladenen HTML text da rein
+            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+           doc.LoadHtml(_htmlText);
+
+           foreach (IEnumerable<HtmlNode> table in doc.DocumentNode.Descendants("//table[@class='Artikelliste']"))
+           {
+               foreach (HtmlNode line in table)
+               {
+                   MessageBox.Show(line.ToString());
+               }
+           }
+           /*var hell = doc.DocumentNode.SelectNodes("//table[@class='hell']");
 
            // erstellen der Hilfsinstanz von Produk
            Product tmpProduct = new Product();
 
-           foreach (HTMLNode hell in hell) 
-            {
-
-            // Auslesen Der Daten
-            var name = doc.DocumentNode.SelectSingleNode("//td[@class='Typ']").InnerText;
-            var hprice = doc.DocumentNode.SelectSingleNode("//td[@class='Brutto']").InnerText;
+       
+           // Auslesen Der Daten
+           HtmlAgilityPack.HtmlDocument newDoc = new HtmlAgilityPack.HtmlDocument();
+           newDoc.LoadHtml(hell.ToString());
+           name = newDoc.DocumentNode.SelectSingleNode("//td[@class='Typ']").InnerText;
+           price = newDoc.DocumentNode.SelectSingleNode("//td[@class='Brutto']").InnerText;
        
 
-            //Typecasting                               umwandlung von Strings in Zahlen
-            price = (double)hprice;
+           //Typecasting                               umwandlung von Strings in Zahlen
+           //price = (double)hprice;
            
 
-	    // Datenübergabe
-	    this.Items.Add(new Product() { Name = name, Price = price, Description = "Beschreibung nicht verfügbar" };
+	       // Datenübergabe
+	       this.Items.Add(new Product() { Name = name, Price = price });
 
-            }
+           
    
            var dunkel = doc.DocumentNode.SelectNodes("//table[@class='dunkel']");
-           foreach (HTMLNode dunkel in dunkel) 
-            {
+           
 
-            // Auslesen Der Daten
-            var name = doc.DocumentNode.SelectSingleNode("//td[@class='Typ']").InnerText;
-            var hprice = doc.DocumentNode.SelectSingleNode("//td[@class='Brutto']").InnerText;
+           // Auslesen Der Daten
+           //HtmlDocument newDoc = new HtmlDocument();
+           newDoc.LoadHtml(dunkel.ToString());
+           name = newDoc.DocumentNode.SelectSingleNode("//td[@class='Typ']").InnerText;
+           price = newDoc.DocumentNode.SelectSingleNode("//td[@class='Brutto']").InnerText;
+          
         
-            //Typecasting                               umwandlung von Strings in Zahlen
-            price = (double)hprice;
+           //Typecasting                               umwandlung von Strings in Zahlen
+           //price = (double)hprice;
                        
 
             // Datenübergabe
-	    this.Items.Add(new Product() { Name = name, Price = price, Description = "Beschreibung nicht verfügbar" };
+	        this.Items.Add(new Product() { Name = name, Price = price });*/
 
-            }
-            //return list;
+            NotifyPropertyChanged("SampleProperty");
+            
+            return this.Items;
         }
 
     }

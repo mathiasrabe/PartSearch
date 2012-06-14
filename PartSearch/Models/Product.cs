@@ -16,7 +16,7 @@ namespace PartSearch.Models
     {
         private string _name;
         //private string _description;
-        private double _price;
+        private string _price;
         private int _quantity;
 
         public string Name
@@ -47,7 +47,7 @@ namespace PartSearch.Models
             }
         }
 */
-        public double Price
+        public string Price
         {
             get
             {

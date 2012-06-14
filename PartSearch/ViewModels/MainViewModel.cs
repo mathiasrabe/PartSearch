@@ -21,15 +21,15 @@ namespace PartSearch
     {
         public MainViewModel()
         {
-            this.Items = new ObservableCollection<Product>();
+            //this.Items = new ObservableCollection<Product>();
         }
 
-	public SearchEngin Engin{get; set;}
+        public SearchEngine Engine{get; set;}
 
         /// <summary>
         /// Eine Auflistung für ItemViewModel-Objekte.
         /// </summary>
-        public ObservableCollection<Product> Items { get; private set; }
+        //public ObservableCollection<Product> Items { get; private set; }
 
         private string _sampleProperty = "Beispielwert für die Laufzeiteigenschaft";
         /// <summary>
@@ -62,14 +62,16 @@ namespace PartSearch
         /// Erstellt und fügt einige ItemViewModel-Objekte zur Items-Auflistung hinzu.
         /// </summary>
 
-	public void LoadData(string name, string preis)
+	    public void LoadData()
         {
-            
-           
-	    
-    
+            //FIXME
 
             this.IsDataLoaded = true;
+        }
+
+        public void SearchData(string searchString)
+        {
+            Engine.GetWebText(searchString);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

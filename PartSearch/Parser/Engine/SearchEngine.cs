@@ -4,10 +4,12 @@ using System.Net;
 using System.Collections.Generic;
 using System.Windows;
 using PartSearch.Models;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace PartSearch
 {
-    public class SearchEngine
+    public class SearchEngine : INotifyPropertyChanged
     {
         protected string _myURI;
         protected string _htmlText;
@@ -83,7 +85,8 @@ namespace PartSearch
             {
                 // Use the result
                 _htmlText = e.Result;
-                MessageBox.Show(e.Result); //FIXME
+                //MessageBox.Show(e.Result); //FIXME
+                this.GetParts();
             }
             else
             {
@@ -97,10 +100,21 @@ namespace PartSearch
          * 
          * Rückgabewert: null liste bei Fehler
          **/
-        public virtual List<Product> GetParts()
+        public virtual ObservableCollection<Product> GetParts()
         {
-            List<Product> list = new List<Product>();
+            ObservableCollection<Product> list = new ObservableCollection<Product>();
+            NotifyPropertyChanged("NewParts");
             return list;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void NotifyPropertyChanged(String propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (null != handler)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }
