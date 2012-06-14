@@ -51,6 +51,7 @@ namespace PartSearch.Parser
 
            foreach (IEnumerable<HtmlNode> table in doc.DocumentNode.Descendants("//table[@class='Artikelliste']"))
            {
+               //FIXME!!!
                foreach (HtmlNode line in table)
                {
                    MessageBox.Show(line.ToString());
