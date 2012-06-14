@@ -21,7 +21,7 @@ namespace PartSearch
     public partial class MainPage : PhoneApplicationPage
     {
         Buerklin _DistributorBuerklin;
-        Favorit bookmarks;
+        StringStorage bookmarks;
 
         // Konstruktor
         public MainPage()
@@ -29,8 +29,8 @@ namespace PartSearch
             InitializeComponent();
 
             //Bookmarkzeugs initialisieren
-            bookmarks = new Favorit("bookmarks.txt");
-            searchBox.ItemsSource = bookmarks.getBookmarkList();
+            bookmarks = new StringStorage("bookmarks.txt");
+            searchBox.ItemsSource = bookmarks.getItemList();
             bookmarks.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(this.bookmarksChanged);
 
             // Datenkontext des Listenfeldsteuerelements auf die Beispieldaten festlegen
@@ -70,7 +70,7 @@ namespace PartSearch
             {
                 try
                 {
-                    bookmarks.removeBookmark(searchBox.Text);
+                    bookmarks.removeItem(searchBox.Text);
                 }
                 catch (Exception ex)
                 {
@@ -81,7 +81,7 @@ namespace PartSearch
             {
                 try
                 {
-                    bookmarks.addBookmark(searchBox.Text);
+                    bookmarks.addItem(searchBox.Text);
                 }
                 catch (Exception ex)
                 {
@@ -96,7 +96,7 @@ namespace PartSearch
             {
                 //if (ea.ToString == "list")
                 //{
-                    searchBox.ItemsSource = bookmarks.getBookmarkList();
+                    searchBox.ItemsSource = bookmarks.getItemList();
                 //}
             }
         }

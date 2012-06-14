@@ -17,20 +17,20 @@ using System.ComponentModel;
 namespace PartSearch.Filewrapper
 {
 
-    public class Favorit : INotifyPropertyChanged
+    public class StringStorage : INotifyPropertyChanged
 
     {
         IsolatedStorageFile isoStore = IsolatedStorageFile.GetUserStoreForApplication();
         String _fileName;
 
         //Konstruktor
-        public Favorit(string fileName)
+        public StringStorage(string fileName)
         {
             this._fileName = fileName;
         }
 
         // gebe alle Bookmarks wieder
-        public List<String> getBookmarkList()
+        public List<String> getItemList()
         {
             List<String> bookmarks = new List<string>();
 
@@ -65,7 +65,7 @@ namespace PartSearch.Filewrapper
             return bookmarks;
         }
 
-        public void addBookmark(String bookmark)
+        public void addItem(String bookmark)
         {
             try
             {
@@ -88,7 +88,7 @@ namespace PartSearch.Filewrapper
  	 	    }
         }
 
-        public void removeBookmark(String bookmark)
+        public void removeItem(String bookmark)
         {
             // überprüfe ob eine datei existiert
             //FIXME was soll passieren, wenn keine Datei gefunden wurde?
