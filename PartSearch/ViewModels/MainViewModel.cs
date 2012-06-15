@@ -13,18 +13,56 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using PartSearch.Models;
+using PartSearch.Parser;
 
 
 namespace PartSearch
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        protected List<SearchEngine> DistributorList;
+        public Buerklin DistributorBuerklin;
+        public ObservableCollection<Product> Items { private set; get; }
+
         public MainViewModel()
         {
-            //this.Items = new ObservableCollection<Product>();
+            // erzeuge Distributor Modul Buerklin
+            DistributorBuerklin = new Buerklin();
+            DistributorList = new List<SearchEngine>();
+            DistributorList.Add(DistributorBuerklin);
+
+            this.Items = new ObservableCollection<Product>();
+            Items.Add(new Product() {Name = "Keine Ergebnisse"});
+
+            //Engine = DistributorList[0];
+            DistributorBuerklin.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(this.GetItems);
+        }
+        /*
+        public SearchEngine Engine
+        {
+            get
+            {
+                return Engine;
+            }
+            set
+            {
+                Engine = value;
+                Engine.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(this.GetItems);
+            }
+        }*/
+
+        public List<SearchEngine> GetDistributors()
+        {
+            return DistributorList;
         }
 
-        public SearchEngine Engine{get; set;}
+        public void GetItems(object sender, EventArgs e)
+        {
+            if (sender == DistributorBuerklin)
+            {
+                this.Items = ((SearchEngine)sender).Items;
+            }
+        }
 
         /// <summary>
         /// Eine Auflistung für ItemViewModel-Objekte.
@@ -71,7 +109,7 @@ namespace PartSearch
 
         public void SearchData(string searchString)
         {
-            Engine.GetWebText(searchString);
+            DistributorBuerklin.GetWebText(searchString);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

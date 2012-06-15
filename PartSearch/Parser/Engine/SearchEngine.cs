@@ -14,6 +14,7 @@ namespace PartSearch
         protected string _myURI;
         protected string _htmlText;
         protected string _backPartOfMyURI = ""; //falls der searchTerm inmitten der URI ist, kann hier der Teil hinter dem searchTerm gespeichert werden
+        //protected ObservableCollection<Product> list; //hier stehen alle Produkte drin
 
         /**
          * Konstruktor
@@ -86,7 +87,7 @@ namespace PartSearch
                 // Use the result
                 _htmlText = e.Result;
                 //MessageBox.Show(e.Result); //FIXME
-                this.GetParts();
+                this.FindItemsInHtml();
             }
             else
             {
@@ -100,11 +101,22 @@ namespace PartSearch
          * 
          * Rückgabewert: null liste bei Fehler
          **/
-        public virtual ObservableCollection<Product> GetParts()
+        public virtual void FindItemsInHtml()
         {
-            ObservableCollection<Product> list = new ObservableCollection<Product>();
+            Items = new ObservableCollection<Product>();
             NotifyPropertyChanged("NewParts");
-            return list;
+        }
+
+        public ObservableCollection<Product> Items
+        {
+            protected set
+            {
+                Items = value;
+            }
+            get
+            {
+                return Items;
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

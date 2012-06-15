@@ -15,12 +15,13 @@ using HtmlAgilityPack;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Xml;
+//compile with: reference 
 
 namespace PartSearch.Parser
 {
     public class Buerklin : SearchEngine  //: heisst erbt von Search Engine
     {
-        ObservableCollection<Product> Items;
+        //ObservableCollection<Product> Items;
         /**
         * Konstruktor
         **/
@@ -29,10 +30,10 @@ namespace PartSearch.Parser
             //TODO: URI anpassen!
             _myURI = "http://www.buerklin.com/default.asp?event=ShowSE(";
             _backPartOfMyURI = ")";
-            Items = new ObservableCollection<Product>();
+            //Items = new ObservableCollection<Product>();
         }
 
-        public override ObservableCollection<Product> GetParts()
+        public override void FindItemsInHtml()
         {
             // Hilfsvariablen begindn mit h
 
@@ -46,16 +47,27 @@ namespace PartSearch.Parser
            // ObservableCollection<Gericht> tmpGerichte = new ObservableCollection<Gericht>();
 
            //Erstellung HTML Documentes und runtergeladenen HTML text da rein
-            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+            HtmlDocument doc = new HtmlDocument();
            doc.LoadHtml(_htmlText);
 
-           foreach (IEnumerable<HtmlNode> table in doc.DocumentNode.Descendants("//table[@class='Artikelliste']"))
+           if (doc.ParseErrors != null)
            {
-               //FIXME!!!
-               foreach (HtmlNode line in table)
+               foreach (HtmlParseError error in doc.ParseErrors)
                {
-                   MessageBox.Show(line.ToString());
+                   MessageBox.Show("Parse Error in: " + error.SourceText);
                }
+           }
+
+           foreach (HtmlNode row in doc.DocumentNode.SelectNodes("//table[@class = 'Artikelliste']/tbody/tr"))
+           {
+               //MessageBox.Show(row.SelectSingleNode("//td[@class = 'Typ']/a").InnerText);
+
+               name = row.SelectSingleNode("//td[@class = 'Typ']/a").InnerText;
+               //der Brutto-Preis für ein Stück:
+               price = row.SelectSingleNode("//td[@class = 'Brutto']/table/tr/td[@class = 'Preis']").InnerText;
+               price.Remove(0, 7); //löscht die ersten 7 Stellen da darin steht: "&euro; "
+
+               this.Items.Add(new Product() { Name = name, Price = price });
            }
            /*var hell = doc.DocumentNode.SelectNodes("//table[@class='hell']");
 
@@ -98,7 +110,7 @@ namespace PartSearch.Parser
 
             NotifyPropertyChanged("SampleProperty");
             
-            return this.Items;
+            //return this.Items;
         }
 
     }

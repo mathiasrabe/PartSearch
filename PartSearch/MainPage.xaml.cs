@@ -20,7 +20,6 @@ namespace PartSearch
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        Buerklin _DistributorBuerklin;
         StringStorage bookmarks;
 
         // Konstruktor
@@ -37,19 +36,14 @@ namespace PartSearch
             DataContext = App.ViewModel;
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
 
-            // erzeuge Distributor Modul Buerklin
-            _DistributorBuerklin = new Buerklin();
-
             //Erstelle Liste aller Distributor
-            List<SearchEngine> DistributorList = new List<SearchEngine>();
-            DistributorList.Add(_DistributorBuerklin);
+            List<SearchEngine> DistributorList = App.ViewModel.GetDistributors();
 
             //füttere den ListPicker mit Distributoren
             this.distributorListPicker.ItemsSource = DistributorList;
 
-	        App.ViewModel.Engine = _DistributorBuerklin;
-            App.ViewModel.Engine.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(this.ComponentsLoaded);
-
+	        //App.ViewModel.Engine = _DistributorBuerklin;
+            App.ViewModel.DistributorBuerklin.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(this.ComponentsLoaded);
         }
 
         // Daten für die ViewModel-Elemente laden
@@ -108,7 +102,7 @@ namespace PartSearch
 
         private void ComponentsLoaded(object sender, EventArgs e)
         {
-            //TODO Fenster wechseln
+            //Was soll hier geschehen, wenn die Suchergebnisse da sind?
         }
 
         private void searchBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
