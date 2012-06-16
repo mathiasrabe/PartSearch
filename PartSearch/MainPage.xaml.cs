@@ -103,6 +103,7 @@ namespace PartSearch
         private void ComponentsLoaded(object sender, EventArgs e)
         {
             //Was soll hier geschehen, wenn die Suchergebnisse da sind?
+            SecondListBox.ItemsSource = App.ViewModel.Items;
         }
 
         private void searchBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
