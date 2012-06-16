@@ -35,84 +35,31 @@ namespace PartSearch.Parser
 
         public override void FindItemsInHtml()
         {
-            // Hilfsvariablen begindn mit h
-
             string name;
             string price;
-        
-            /*
-            string hname;
-            string hprice;*/
-           
-           // ObservableCollection<Gericht> tmpGerichte = new ObservableCollection<Gericht>();
 
-           //Erstellung HTML Documentes und runtergeladenen HTML text da rein
+            //Erstellung HTML Documentes und runtergeladenen HTML text da rein
             HtmlDocument doc = new HtmlDocument();
-           doc.LoadHtml(_htmlText);
+            doc.LoadHtml(_htmlText);
 
-           if (doc.ParseErrors != null)
-           {
-               foreach (HtmlParseError error in doc.ParseErrors)
-               {
-                   MessageBox.Show("Parse Error in: " + error.SourceText);
-               }
-           }
+            if (doc.ParseErrors != null)
+            {
+                foreach (HtmlParseError error in doc.ParseErrors)
+                {
+                    MessageBox.Show("Parse Error in: " + error.SourceText);
+                }
+            }
 
-           foreach (HtmlNode row in doc.DocumentNode.SelectNodes("//table[@class = 'Artikelliste']/tbody/tr"))
-           {
-               //MessageBox.Show(row.SelectSingleNode("//td[@class = 'Typ']/a").InnerText);
+            foreach (HtmlNode row in doc.DocumentNode.SelectNodes("//table[@class = 'Artikelliste']/tbody/tr"))
+            {
+                name = row.SelectSingleNode("//td[@class = 'Typ']/a").InnerText;
+                //der Brutto-Preis für ein Stück:
+                price = row.SelectSingleNode("//td[@class = 'Brutto']/table/tr/td[@class = 'Preis']").InnerText;
+                price.Remove(0, 7); //löscht die ersten 7 Stellen da darin steht: "&euro; "
 
-               name = row.SelectSingleNode("//td[@class = 'Typ']/a").InnerText;
-               //der Brutto-Preis für ein Stück:
-               price = row.SelectSingleNode("//td[@class = 'Brutto']/table/tr/td[@class = 'Preis']").InnerText;
-               price.Remove(0, 7); //löscht die ersten 7 Stellen da darin steht: "&euro; "
-
-               Product prod = new Product() { Name = name, Price = price };
-               this.Items.Add(prod);
-           }
-           /*var hell = doc.DocumentNode.SelectNodes("//table[@class='hell']");
-
-           // erstellen der Hilfsinstanz von Produk
-           Product tmpProduct = new Product();
-
-       
-           // Auslesen Der Daten
-           HtmlAgilityPack.HtmlDocument newDoc = new HtmlAgilityPack.HtmlDocument();
-           newDoc.LoadHtml(hell.ToString());
-           name = newDoc.DocumentNode.SelectSingleNode("//td[@class='Typ']").InnerText;
-           price = newDoc.DocumentNode.SelectSingleNode("//td[@class='Brutto']").InnerText;
-       
-
-           //Typecasting                               umwandlung von Strings in Zahlen
-           //price = (double)hprice;
-           
-
-	       // Datenübergabe
-	       this.Items.Add(new Product() { Name = name, Price = price });
-
-           
-   
-           var dunkel = doc.DocumentNode.SelectNodes("//table[@class='dunkel']");
-           
-
-           // Auslesen Der Daten
-           //HtmlDocument newDoc = new HtmlDocument();
-           newDoc.LoadHtml(dunkel.ToString());
-           name = newDoc.DocumentNode.SelectSingleNode("//td[@class='Typ']").InnerText;
-           price = newDoc.DocumentNode.SelectSingleNode("//td[@class='Brutto']").InnerText;
-          
-        
-           //Typecasting                               umwandlung von Strings in Zahlen
-           //price = (double)hprice;
-                       
-
-            // Datenübergabe
-	        this.Items.Add(new Product() { Name = name, Price = price });*/
-
+                this.Items.Add(new Product() { Name = name, Price = price });
+            }
             NotifyPropertyChanged("SampleProperty");
-            
-            //return this.Items;
         }
-
     }
 }

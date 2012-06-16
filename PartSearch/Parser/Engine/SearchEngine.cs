@@ -14,7 +14,7 @@ namespace PartSearch
         protected string _myURI;
         protected string _htmlText;
         protected string _backPartOfMyURI = ""; //falls der searchTerm inmitten der URI ist, kann hier der Teil hinter dem searchTerm gespeichert werden
-        //protected ObservableCollection<Product> list; //hier stehen alle Produkte drin
+        public ObservableCollection<Product> Items; //hier stehen alle Produkte drin
 
         /**
          * Konstruktor
@@ -105,18 +105,6 @@ namespace PartSearch
             Items = new ObservableCollection<Product>();
             NotifyPropertyChanged("NewParts");
         }
-
-        public ObservableCollection<Product> Items;
-        /*{
-            protected set
-            {
-                Items = value;
-            }
-            get
-            {
-                return Items;
-            }
-        }*/
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void NotifyPropertyChanged(String propertyName)
