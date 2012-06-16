@@ -67,7 +67,8 @@ namespace PartSearch.Parser
                price = row.SelectSingleNode("//td[@class = 'Brutto']/table/tr/td[@class = 'Preis']").InnerText;
                price.Remove(0, 7); //löscht die ersten 7 Stellen da darin steht: "&euro; "
 
-               this.Items.Add(new Product() { Name = name, Price = price });
+               Product prod = new Product() { Name = name, Price = price };
+               this.Items.Add(prod);
            }
            /*var hell = doc.DocumentNode.SelectNodes("//table[@class='hell']");
 

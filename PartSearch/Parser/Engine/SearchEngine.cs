@@ -21,11 +21,10 @@ namespace PartSearch
          * 
          * Ableitende Klassen müssen in ihren Konstruktoren ihre URI initialisieren!
          **/
-        /*public SearchEngine()
+        public SearchEngine()
         {
-            //TODO: dies sollte in den abgeleiteten Klassen deffiniert werden
-            _myURI = "http://www.google.de/#hl=de&q=";
-        }*/
+            Items = new ObservableCollection<Product>();
+        }
 
         /**
          * Gibt Host URL der Domain zurück
@@ -107,8 +106,8 @@ namespace PartSearch
             NotifyPropertyChanged("NewParts");
         }
 
-        public ObservableCollection<Product> Items
-        {
+        public ObservableCollection<Product> Items;
+        /*{
             protected set
             {
                 Items = value;
@@ -117,7 +116,7 @@ namespace PartSearch
             {
                 return Items;
             }
-        }
+        }*/
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void NotifyPropertyChanged(String propertyName)
