@@ -55,7 +55,7 @@ namespace PartSearch.Parser
                 name = row.SelectSingleNode("//td[@class = 'Typ']/a").InnerText;
                 //der Brutto-Preis für ein Stück:
                 price = row.SelectSingleNode("//td[@class = 'Brutto']/table/tr/td[@class = 'Preis']").InnerText;
-                price.Remove(0, 7); //löscht die ersten 7 Stellen da darin steht: "&euro; "
+                price = price.Remove(0, 7); //löscht die ersten 7 Stellen da darin steht: "&euro; "
 
                 this.Items.Add(new Product() { Name = name, Price = price });
             }
