@@ -52,9 +52,10 @@ namespace PartSearch.Parser
 
             foreach (HtmlNode row in doc.DocumentNode.SelectNodes("//table[@class = 'Artikelliste']/tbody/tr"))
             {
-                name = row.SelectSingleNode("//td[@class = 'Typ']/a").InnerText;
+                name = row.SelectSingleNode("td[@class = 'Typ']/a").InnerText;
+                name = name.Remove(0, name.IndexOf(",") + 2); //entfernt Artikelnummer
                 //der Brutto-Preis für ein Stück:
-                price = row.SelectSingleNode("//td[@class = 'Brutto']/table/tr/td[@class = 'Preis']").InnerText;
+                price = row.SelectSingleNode("td[@class = 'Brutto']/table/tr/td[@class = 'Preis']").InnerText;
                 price = price.Remove(0, 7); //löscht die ersten 7 Stellen da darin steht: "&euro; "
 
                 this.Items.Add(new Product() { Name = name, Price = price });
