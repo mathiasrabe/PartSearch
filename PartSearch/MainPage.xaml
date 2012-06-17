@@ -20,7 +20,7 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         
         <!--Pivotsteuerelement-->
-        <controls:Pivot Title="PartSearch">
+        <controls:Pivot x:Name="PivotControle" Title="PartSearch">
             <!--Pivotelement eins-->
             <controls:PivotItem Header="Suche">
                 <Grid>
@@ -31,7 +31,7 @@
                             </DataTemplate>
                         </toolkit:ListPicker.ItemTemplate>
                     </toolkit:ListPicker>
-                    <toolkit:AutoCompleteBox HorizontalAlignment="Left" Margin="-1,90,0,0" Name="searchBox" VerticalAlignment="Top" Width="455" SelectionChanged="searchBox_SelectionChanged" />
+                    <toolkit:AutoCompleteBox HorizontalAlignment="Left" Margin="-1,90,0,0" Name="searchBox" VerticalAlignment="Top" Width="455" SelectionChanged="searchBox_SelectionChanged" KeyUp="searchBox_KeyUp" />
                     <Button Content="Bookmark" Foreground="Yellow" Height="72" HorizontalAlignment="Left" Margin="0,156,0,0" Name="bookmarkButton" Padding="3" VerticalAlignment="Top" Width="222" Click="bookmarkButton_Click" />
                     <Button Content="Go!" Height="72" HorizontalAlignment="Left" Margin="235,156,0,0" Name="searchButton" VerticalAlignment="Top" Width="218" Click="searchButton_Click" Foreground="#FF3BFF00" Padding="3" />
                 </Grid>

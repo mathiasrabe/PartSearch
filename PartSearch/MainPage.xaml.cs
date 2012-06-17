@@ -59,8 +59,13 @@ namespace PartSearch
         {
             //_DistributorBuerklin.GetWebText(searchBox.Text);
             //search.GetParts();
-            App.ViewModel.SearchData(searchBox.Text);
+            this.search();
+        }
 
+        private void search()
+        {
+            App.ViewModel.SearchData(searchBox.Text);
+            PivotControle.SelectedIndex = 1;
         }
 
         private void bookmarkButton_Click(object sender, RoutedEventArgs e)
@@ -112,6 +117,15 @@ namespace PartSearch
             {
                 //ändere das style des buttons
                 //bookmarkButton.Style = (Style)this.Ressources
+            }
+        }
+
+        private void searchBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Focus();
+                this.search();
             }
         }
     }
