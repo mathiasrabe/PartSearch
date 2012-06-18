@@ -64,6 +64,11 @@ namespace PartSearch
 
         private void search()
         {
+            if (searchBox.Text.Length == 0)
+            {
+                MessageBox.Show("Bitte geben Sie einen Suchbegriff ein.");
+                return;
+            }
             App.ViewModel.SearchData(searchBox.Text);
             PivotControle.SelectedIndex = 1;
         }

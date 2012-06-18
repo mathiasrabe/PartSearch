@@ -38,6 +38,9 @@ namespace PartSearch.Parser
             string name;
             string price;
 
+            //lösche alte Ergebnisse
+            this.Items.Clear();
+
             //Erstellung HTML Documentes und runtergeladenen HTML text da rein
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(_htmlText);

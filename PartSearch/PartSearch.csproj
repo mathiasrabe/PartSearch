@@ -79,7 +79,6 @@
     <Compile Include="Parser\Buerklin.cs" />
     <Compile Include="Parser\Engine\SearchEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
