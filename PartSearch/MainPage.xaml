@@ -63,7 +63,7 @@
                         </ListBox>
                     <StackPanel x:Name="SearchScreen" Background="#B4000000" Visibility="Collapsed">
                         <TextBlock Text="Lädt.." Margin="0,200,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}" Width="103" />
-                        <toolkit:PerformanceProgressBar Name="performanceProgressBar1" />
+                        <toolkit:PerformanceProgressBar Name="performanceProgressBar"  />
                         <Button Height="72" Width="148" Content="Abbrechen" Name="LoadingCancelButton" Click="LoadingCancelButton_Click" />
                     </StackPanel>
                 </Grid>

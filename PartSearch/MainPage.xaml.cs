@@ -76,7 +76,6 @@ namespace PartSearch
 
         private void HideSearchScreen()
         {
-            PivotControle.SelectedIndex = 1;
             SearchScreen.Visibility = System.Windows.Visibility.Collapsed;
         }
 
@@ -144,7 +143,10 @@ namespace PartSearch
 
         private void LoadingCancelButton_Click(object sender, RoutedEventArgs e)
         {
+            //cancel the search
+            PivotControle.SelectedIndex = 0;
             this.HideSearchScreen();
+            App.ViewModel.DistributorBuerklin.CancelSearch();
         }
     }
 }

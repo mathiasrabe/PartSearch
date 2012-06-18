@@ -11,10 +11,12 @@ namespace PartSearch
 {
     public class SearchEngine : INotifyPropertyChanged
     {
+        protected bool _cancelSearch;
         protected string _myURI;
         protected string _htmlText;
         protected string _backPartOfMyURI = ""; //falls der searchTerm inmitten der URI ist, kann hier der Teil hinter dem searchTerm gespeichert werden
         public ObservableCollection<Product> Items; //hier stehen alle Produkte drin
+        protected WebClient client;
 
         /**
          * Konstruktor
@@ -24,6 +26,9 @@ namespace PartSearch
         public SearchEngine()
         {
             Items = new ObservableCollection<Product>();
+
+            client = new WebClient();
+            client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(client_DownloadStringCompleted);
         }
 
         /**
@@ -59,10 +64,13 @@ namespace PartSearch
          **/
         public void GetWebText(string searchTerm)
         {
+            if (client.IsBusy)
+            {
+                client.CancelAsync();
+            }
+
             try
             {
-                WebClient client = new WebClient();
-                client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(client_DownloadStringCompleted);
                 client.DownloadStringAsync(new Uri(_myURI + searchTerm + _backPartOfMyURI));
             }
             catch (WebException e)
@@ -80,6 +88,11 @@ namespace PartSearch
          **/
         protected void client_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
+            if (_cancelSearch)
+            {
+                _cancelSearch = false;
+                return;
+            }
             // Make sure the process completed successfully
             if (e.Error == null)
             {
@@ -92,6 +105,12 @@ namespace PartSearch
             {
                 MessageBox.Show("Error: " + e.Error);
             }
+        }
+
+        public void CancelSearch()
+        {
+            client.CancelAsync();
+            _cancelSearch = true;
         }
 
         /**
