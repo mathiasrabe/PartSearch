@@ -71,6 +71,13 @@ namespace PartSearch
             }
             App.ViewModel.SearchData(searchBox.Text);
             PivotControle.SelectedIndex = 1;
+            SearchScreen.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void HideSearchScreen()
+        {
+            PivotControle.SelectedIndex = 1;
+            SearchScreen.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         private void bookmarkButton_Click(object sender, RoutedEventArgs e)
@@ -113,6 +120,7 @@ namespace PartSearch
         private void ComponentsLoaded(object sender, EventArgs e)
         {
             //Was soll hier geschehen, wenn die Suchergebnisse da sind?
+            this.HideSearchScreen();
             SecondListBox.ItemsSource = App.ViewModel.Items;
         }
 
@@ -132,6 +140,11 @@ namespace PartSearch
                 this.Focus();
                 this.search();
             }
+        }
+
+        private void LoadingCancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.HideSearchScreen();
         }
     }
 }

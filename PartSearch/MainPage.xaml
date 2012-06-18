@@ -42,7 +42,7 @@
                 <Grid>
                     <TextBlock Height="50" HorizontalAlignment="Left" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="10,0,0,0" Name="nameHeader" Text="Name" VerticalAlignment="Top" />
                     <TextBlock Height="50" HorizontalAlignment="Right" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="0,0,11,0" Name="priceHeader" Text="Preis" VerticalAlignment="Top" />
-
+                   
                     <!--Dreizeilige Liste ohne Textumbruch-->
                         <ListBox x:Name="SecondListBox" Margin="0,60,-12,0" ItemsSource="{Binding Items}" >
                             <ListBox.ItemTemplate>
@@ -61,6 +61,11 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
+                    <StackPanel x:Name="SearchScreen" Background="#B4000000" Visibility="Collapsed">
+                        <TextBlock Text="Lädt.." Margin="0,200,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}" Width="103" />
+                        <toolkit:PerformanceProgressBar Name="performanceProgressBar1" />
+                        <Button Height="72" Width="148" Content="Abbrechen" Name="LoadingCancelButton" Click="LoadingCancelButton_Click" />
+                    </StackPanel>
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>
