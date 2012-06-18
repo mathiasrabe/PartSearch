@@ -103,7 +103,10 @@ namespace PartSearch
             }
             else
             {
-                MessageBox.Show("Error: " + e.Error);
+                //MessageBox.Show("Error: " + e.Error);
+                //FIXME genauer Angabe was genau schief lief
+                MessageBox.Show("Fehler bei der Übertragung");
+                NotifyPropertyChanged("ErrorFromPage");
             }
         }
 
